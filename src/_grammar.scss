@@ -1,0 +1,42 @@
+@use "sass:list";
+
+@use "unit";
+@use "utils";
+@use "keywords";
+
+@function toNumber($value) {
+	@if $value == keywords.$start {
+		@return 0;
+	}
+
+	@if $value == end {
+		@return unit.$columns;
+	}
+
+	@if utils.isNumber($value) {
+		@return $value;
+	}
+
+	@error '#{$value} is not a number or "#{keywords.$start}"/"#{keywords.$end}" keywords.';
+}
+
+@function _range($list) {
+	$_copy: utils.skip(keywords.$from, $list);
+	$leftNumber: toNumber(list.nth($_copy, 1));
+	$_copy: utils.skip(keywords.$to, utils.slice($_copy, 2));
+	$rightNumber: toNumber(list.nth($_copy, 1));
+
+	@if $leftNumber > $rightNumber {
+		@error 'From number cannot be greater than To';
+	}
+
+	@return ($leftNumber $rightNumber);
+}
+
+@function compile($list) {
+	$_numbers: _range($list);
+
+	@return calc(
+		var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1) + 1}
+	);
+}

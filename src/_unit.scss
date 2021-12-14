@@ -1,0 +1,9 @@
+@use "sass:math";
+
+$columns: 64 !default;
+
+@mixin init($cols: $columns) {
+	:root {
+		--unit: #{math.div(100vw, $cols)};
+	}
+}

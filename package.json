@@ -1,0 +1,14 @@
+{
+  "name": "compiler-in-sass",
+  "private": true,
+  "scripts": {
+    "start": "parcel ./test/index.html"
+  },
+  "dependencies": {
+    "sass": "^1.44.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.1",
+    "parcel": "^2.0.1"
+  }
+}

@@ -1,0 +1,10 @@
+@use "../src/unit";
+@use "../src/grammar";
+
+@include unit.init();
+
+.test {
+	width: grammar.compile(from 7 to end);
+	background-color: tomato;
+	height: 5rem;
+}

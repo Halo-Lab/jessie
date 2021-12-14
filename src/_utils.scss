@@ -1,0 +1,25 @@
+@use "sass:meta";
+@use "sass:list";
+
+@function slice($list, $from, $to: list.length($list) + 1) {
+	$_separator: list.separator($list);
+	$_copy: ();
+
+	@for $index from $from to $to {
+		$_copy: list.append($_copy, list.nth($list, $index), $_separator);
+	}
+
+	@return $_copy;
+}
+
+@function isNumber($value) {
+	@return meta.type-of($value) == "number";
+}
+
+@function skip($word, $list) {
+	@if $word != list.nth($list, 1) {
+		@error 'Word #{$word} does not match the #{$list} sequence.';
+	}
+
+	@return slice($list, 2);
+}
