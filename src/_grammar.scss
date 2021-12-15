@@ -2,41 +2,36 @@
 
 @use "unit";
 @use "utils";
-@use "keywords";
-
-@function toNumber($value) {
-	@if $value == keywords.$start {
-		@return 0;
-	}
-
-	@if $value == end {
-		@return unit.$columns;
-	}
-
-	@if utils.isNumber($value) {
-		@return $value;
-	}
-
-	@error '#{$value} is not a number or "#{keywords.$start}"/"#{keywords.$end}" keywords.';
-}
-
-@function _range($list) {
-	$_copy: utils.skip(keywords.$from, $list);
-	$leftNumber: toNumber(list.nth($_copy, 1));
-	$_copy: utils.skip(keywords.$to, utils.slice($_copy, 2));
-	$rightNumber: toNumber(list.nth($_copy, 1));
-
-	@if $leftNumber > $rightNumber {
-		@error 'From number cannot be greater than To';
-	}
-
-	@return ($leftNumber $rightNumber);
-}
+@use "range";
+@use "number";
+@use "borders";
 
 @function compile($list) {
-	$_numbers: _range($list);
+	$_copy: $list;
+	$_numbers: (0, 0);
+	$_borders: ();
+
+	@if number.isNumber(list.nth($_copy, 1)) {
+		$_numbers: (0, number.number($_copy));
+		$_copy: utils.slice($_copy, 2);
+	} @else {
+		$_numbers: range.range($_copy);
+		$_copy: utils.slice($_copy, 5);
+	}
+
+	@if not utils.isEmpty($_copy) {
+		$_borders: borders.borders($_copy);
+	}
+
+	@if not utils.isEmpty($_borders) {
+		@return clamp(
+			#{list.nth($_borders, 1)}px,
+			calc(var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1)}),
+			#{list.nth($_borders, 2)}px
+		);
+	}
 
 	@return calc(
-		var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1) + 1}
+		var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1)}
 	);
 }

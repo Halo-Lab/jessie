@@ -1,0 +1,22 @@
+@use "sass:list";
+
+@use "utils";
+@use "keywords";
+
+@function borders($list) {
+	$_copy: $list;
+	$_min: 0;
+	$_max: $_min;
+
+	$_copy: utils.skip(keywords.$min, $_copy);
+
+	$_min: list.nth($_copy, 1);
+
+	$_copy: utils.slice($_copy, 2);
+
+	$_copy: utils.skip(keywords.$max, $_copy);
+
+	$_max: list.nth($_copy, 1);
+
+	@return ($_min, $_max);
+}

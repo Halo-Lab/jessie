@@ -1,0 +1,36 @@
+@use "sass:meta";
+@use "sass:list";
+
+@use "unit";
+@use "utils";
+@use "keywords";
+
+@function isNumber($value) {
+	@return meta.type-of($value) == "number";
+}
+
+@function toNumber($value) {
+	@if $value == keywords.$start {
+		@return 0;
+	}
+
+	@if $value == end {
+		@return unit.$columns;
+	}
+
+	@if isNumber($value) {
+		@return $value;
+	}
+
+	@error '#{$value} is not a number or "#{keywords.$start}"/"#{keywords.$end}" keywords.';
+}
+
+@function number($list) {
+	$_value: list.nth($list, 1);
+
+	@if not isNumber($_value) {
+		@error "#{$_value} is not a number!";
+	}
+
+	@return $_value;
+}

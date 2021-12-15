@@ -1,6 +1,10 @@
 @use "sass:meta";
 @use "sass:list";
 
+@function isEmpty($list) {
+	@return list.length($list) == 0;
+}
+
 @function slice($list, $from, $to: list.length($list) + 1) {
 	$_separator: list.separator($list);
 	$_copy: ();
@@ -10,10 +14,6 @@
 	}
 
 	@return $_copy;
-}
-
-@function isNumber($value) {
-	@return meta.type-of($value) == "number";
 }
 
 @function skip($word, $list) {
