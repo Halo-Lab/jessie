@@ -18,15 +18,15 @@ The syntax is simple:
 
 - former is followed by a `borders` block that can have a minimum (unitless) and a maximun value (unitless) in pixels: `min <number> to <number>`.
 
-Definition of the dimension must be written inside `compile` function.
+Definition of the dimension must be written inside `value` function.
 
 ```scss
 body {
-	width: compile(8);
+	width: value(8);
 	// or
-	width: compile(from 1 to 8);
+	width: value(from 1 to 8);
 	// or if you want to add some constraints
-	width: compile(from 1 to 8 min 40 max 120);
+	width: value(from 1 to 8 min 40 max 120);
 }
 ```
 
