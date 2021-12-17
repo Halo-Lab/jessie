@@ -4,8 +4,8 @@
 @use "number";
 @use "keywords";
 
-@function range($list) {
-	$_copy: utils.skip(keywords.$from, $list);
+@function range($tokens) {
+	$_copy: utils.skip(keywords.$from, $tokens);
 	$leftNumber: number.toNumber(list.nth($_copy, 1));
 	$_copy: utils.skip(keywords.$to, utils.slice($_copy, 2));
 	$rightNumber: number.toNumber(list.nth($_copy, 1));

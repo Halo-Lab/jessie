@@ -6,8 +6,8 @@
 @use "number";
 @use "borders";
 
-@function compile($list) {
-	$_copy: $list;
+@function value($tokens) {
+	$_copy: $tokens;
 	$_numbers: (0, 0);
 	$_borders: ();
 
@@ -25,9 +25,9 @@
 
 	@if not utils.isEmpty($_borders) {
 		@return clamp(
-			#{list.nth($_borders, 1)}px,
+			#{list.nth($_borders, 1)},
 			calc(var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1)}),
-			#{list.nth($_borders, 2)}px
+			#{list.nth($_borders, 2)}
 		);
 	}
 

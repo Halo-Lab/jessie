@@ -3,8 +3,8 @@
 @use "utils";
 @use "keywords";
 
-@function borders($list) {
-	$_copy: $list;
+@function borders($tokens) {
+	$_copy: $tokens;
 	$_min: 0;
 	$_max: $_min;
 

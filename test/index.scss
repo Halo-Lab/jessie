@@ -3,7 +3,7 @@
 @include compiler.init();
 
 .test {
-	width: compiler.compile(8 min 50 max 70);
+	width: compiler.value(8 min 50px max 70em);
 	background-color: tomato;
 	height: 5rem;
 }
