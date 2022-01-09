@@ -3,20 +3,32 @@
 @use "utils";
 @use "keywords";
 
-@function borders($tokens) {
+@function parse($tokens) {
 	$_copy: $tokens;
-	$_min: 0;
-	$_max: $_min;
+	$_min: null;
+	$_max: null;
 
-	$_copy: utils.skip(keywords.$min, $_copy);
+	@if not utils.isEmpty($_copy) {
+		@if utils.first($_copy) == keywords.$min {
+			$_copy: utils.skipFrom($_copy, keywords.$min);
 
-	$_min: list.nth($_copy, 1);
+			$_min: utils.first($_copy);
 
-	$_copy: utils.slice($_copy, 2);
+			$_copy: utils.skipFrom($_copy, 2);
+		}
+	}
 
-	$_copy: utils.skip(keywords.$max, $_copy);
+	@if not utils.isEmpty($_copy) {
+		@if utils.first($_copy) == keywords.$max {
+			$_copy: utils.skipFrom($_copy, keywords.$max);
 
-	$_max: list.nth($_copy, 1);
+			$_max: utils.first($_copy);
+		}
+	}
+
+	@if $_min == null and $_max == null {
+		@return ();
+	}
 
 	@return ($_min, $_max);
 }

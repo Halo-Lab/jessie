@@ -4,15 +4,16 @@
 @use "number";
 @use "keywords";
 
-@function range($tokens) {
-	$_copy: utils.skip(keywords.$from, $tokens);
-	$leftNumber: number.toNumber(list.nth($_copy, 1));
-	$_copy: utils.skip(keywords.$to, utils.slice($_copy, 2));
-	$rightNumber: number.toNumber(list.nth($_copy, 1));
+@function parse($tokens) {
+	$_copy: utils.skipFrom($tokens, keywords.$from);
+	$leftNumber: number.extractFrom($_copy);
+
+	$_copy: utils.skipFrom(utils.skipFrom($_copy, 2), keywords.$to);
+	$rightNumber: number.extractFrom($_copy);
 
 	@if $leftNumber > $rightNumber {
 		@error 'From number cannot be greater than To';
 	}
 
-	@return ($leftNumber $rightNumber + 1);
+	@return ($leftNumber $rightNumber);
 }

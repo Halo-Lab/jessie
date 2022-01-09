@@ -1,9 +1,24 @@
 @use "sass:math";
 
+@use "utils";
+
 $columns: 64 !default;
 
-@mixin init($cols: $columns) {
+@mixin init(
+	$grid-columns: $columns,
+	$grid-width: 100vw,
+	$min-unit-value: 10px,
+	$max-unit-value: 25px
+) {
+	$columns: $grid-columns !global;
+
 	:root {
-		--unit: #{math.div(100vw, $cols)};
+		--scrollbar-width: 0px;
+
+		font-size: utils.between(
+			$min-unit-value,
+			calc((100vw - var(--scrollbar-width)) * 0.0078125 + 10px),
+			$max-unit-value
+		);
 	}
 }

@@ -1,9 +1,81 @@
-@use "../src/compiler.scss";
+@use "../index" as jessie;
 
-@include compiler.init();
+@include jessie.init();
 
-.test {
-	width: compiler.value(8 min 50px max 70em);
-	background-color: tomato;
-	height: 5rem;
+:root {
+	--main-color: #ff7c0a;
+	--second-color: #001710;
+}
+
+body {
+	margin: 0;
+	line-height: 1;
+	min-height: 100vh;
+	color: var(--second-color);
+}
+
+.title {
+	margin-top: jessie.value(1);
+	text-align: center;
+}
+
+.package-name {
+	color: var(--main-color);
+}
+
+.ruler {
+	display: flex;
+	margin: 0;
+	padding-left: 0;
+	counter-set: position;
+
+	li {
+		font-size: jessie.value(0.7);
+		width: jessie.value(1);
+		text-align: center;
+		list-style: none;
+		counter-increment: position;
+
+		&::before {
+			content: counter(position);
+		}
+	}
+}
+
+.container {
+	--line: transparent 0 calc(#{jessie.value(1)} - 1px), black #{jessie.value(1)};
+
+	border: 1px solid black;
+	background: repeating-linear-gradient(to right, var(--line)),
+		repeating-linear-gradient(to bottom, var(--line));
+}
+
+.cell {
+	background-color: var(--main-color);
+
+	&:not(:last-child) {
+		margin-bottom: jessie.value(1);
+	}
+}
+
+.single-value {
+	width: jessie.value(5);
+}
+
+.range {
+	margin-left: jessie.value(from start to 4);
+	width: jessie.value(from 4 to 12);
+}
+
+.range-min-constraint {
+	width: jessie.value(8 min 30px);
+}
+
+.range-max-constraint {
+	width: jessie.value(17 max 75%);
+}
+
+.full-syntax {
+	margin-left: jessie.value(from start to 6);
+	width: jessie.value(from 6 to 45 min 200px max 50em);
 }

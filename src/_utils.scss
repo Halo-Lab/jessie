@@ -16,10 +16,26 @@
 	@return $_copy;
 }
 
-@function skip($word, $list) {
-	@if $word != list.nth($list, 1) {
-		@error 'Word #{$word} does not match the #{$list} sequence.';
+@function skipFrom($list, $tokenOrCount) {
+	// We cannot import 'number' module because of circular
+	// dependencies
+	@if meta.type-of($tokenOrCount) == number {
+		@return slice($list, $tokenOrCount);
+	}
+
+	@if $tokenOrCount != first($list) {
+		@error 'Word #{$tokenOrCount} does not match the first value from #{$list} sequence.';
 	}
 
 	@return slice($list, 2);
+}
+
+// Safari 12 doesn't support CSS clamp function
+@function between($min, $value, $max) {
+	@return max(#{$min}, min(#{$value}, #{$max}));
+}
+
+/// Returns first value of a list
+@function first($list) {
+	@return list.nth($list, 1);
 }

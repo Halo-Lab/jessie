@@ -1,14 +1,16 @@
 {
-	"name": "compiler-in-sass",
-	"private": true,
+	"name": "jessie",
+	"version": "0.1.0",
+	"description": "Utility for defining dimensions of elements based on the alleged grid",
 	"scripts": {
-		"test": "parcel ./test/index.html"
+		"start": "parcel ./test/index.html",
+		"build": "parcel build ./test/index.html"
 	},
 	"dependencies": {
-		"sass": "^1.44.0"
+		"sass": "^1.47.0"
 	},
 	"devDependencies": {
-		"@parcel/transformer-sass": "^2.0.1",
-		"parcel": "^2.0.1"
+		"@parcel/transformer-sass": "^2.1.1",
+		"parcel": "^2.1.1"
 	}
 }

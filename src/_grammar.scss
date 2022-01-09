@@ -11,27 +11,32 @@
 	$_numbers: (0, 0);
 	$_borders: ();
 
-	@if number.isNumber(list.nth($_copy, 1)) {
-		$_numbers: (0, number.number($_copy));
-		$_copy: utils.slice($_copy, 2);
+	@if number.isNumber(utils.first($_copy)) {
+		$_numbers: (0, number.extractFrom($_copy));
+		$_copy: utils.skipFrom($_copy, 2);
 	} @else {
-		$_numbers: range.range($_copy);
-		$_copy: utils.slice($_copy, 5);
+		$_numbers: range.parse($_copy);
+		$_copy: utils.skipFrom($_copy, 5);
 	}
 
+	$_value: 1rem * (list.nth($_numbers, 2) - utils.first($_numbers));
+
 	@if not utils.isEmpty($_copy) {
-		$_borders: borders.borders($_copy);
+		$_borders: borders.parse($_copy);
 	}
 
 	@if not utils.isEmpty($_borders) {
-		@return clamp(
-			#{list.nth($_borders, 1)},
-			calc(var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1)}),
-			#{list.nth($_borders, 2)}
-		);
+		$_min: utils.first($_borders);
+		$_max: list.nth($_borders, 2);
+
+		@if $_min == null {
+			@return min(#{$_max}, #{$_value});
+		} @else if $_max == null {
+			@return max(#{$_min}, #{$_value});
+		} @else {
+			@return utils.between($_min, $_value, $_max);
+		}
 	}
 
-	@return calc(
-		var(--unit) * #{list.nth($_numbers, 2) - list.nth($_numbers, 1)}
-	);
+	@return $_value;
 }
