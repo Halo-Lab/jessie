@@ -6,14 +6,14 @@
 }
 
 @function slice($list, $from, $to: list.length($list) + 1) {
-	$_separator: list.separator($list);
-	$_copy: ();
+	$separator: list.separator($list);
+	$copy: ();
 
 	@for $index from $from to $to {
-		$_copy: list.append($_copy, list.nth($list, $index), $_separator);
+		$copy: list.append($copy, list.nth($list, $index), $separator);
 	}
 
-	@return $_copy;
+	@return $copy;
 }
 
 @function skipFrom($list, $tokenOrCount) {

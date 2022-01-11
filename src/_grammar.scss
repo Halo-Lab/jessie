@@ -7,36 +7,36 @@
 @use "borders";
 
 @function value($tokens) {
-	$_copy: $tokens;
-	$_numbers: (0, 0);
-	$_borders: ();
+	$tokensCopy: $tokens;
+	$numbers: (0, 0);
+	$borders: ();
 
-	@if number.isNumber(utils.first($_copy)) {
-		$_numbers: (0, number.extractFrom($_copy));
-		$_copy: utils.skipFrom($_copy, 2);
+	@if number.isNumber(utils.first($tokensCopy)) {
+		$numbers: (0, number.extractFrom($tokensCopy));
+		$tokensCopy: utils.skipFrom($tokensCopy, 2);
 	} @else {
-		$_numbers: range.parse($_copy);
-		$_copy: utils.skipFrom($_copy, 5);
+		$numbers: range.parse($tokensCopy);
+		$tokensCopy: utils.skipFrom($tokensCopy, 5);
 	}
 
-	$_value: 1rem * (list.nth($_numbers, 2) - utils.first($_numbers));
+	$value: 1rem * (list.nth($numbers, 2) - utils.first($numbers));
 
-	@if not utils.isEmpty($_copy) {
-		$_borders: borders.parse($_copy);
+	@if not utils.isEmpty($tokensCopy) {
+		$borders: borders.parse($tokensCopy);
 	}
 
-	@if not utils.isEmpty($_borders) {
-		$_min: utils.first($_borders);
-		$_max: list.nth($_borders, 2);
+	@if not utils.isEmpty($borders) {
+		$min: utils.first($borders);
+		$max: list.nth($borders, 2);
 
-		@if $_min == null {
-			@return min(#{$_max}, #{$_value});
-		} @else if $_max == null {
-			@return max(#{$_min}, #{$_value});
+		@if $min == null {
+			@return min(#{$max}, #{$value});
+		} @else if $max == null {
+			@return max(#{$min}, #{$value});
 		} @else {
-			@return utils.between($_min, $_value, $_max);
+			@return utils.between($min, $value, $max);
 		}
 	}
 
-	@return $_value;
+	@return $value;
 }

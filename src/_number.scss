@@ -28,7 +28,7 @@
 /// By default, returns first value.
 /// Throws an error if a value is not a number.
 @function extractFrom($list, $position: 1) {
-	$_value: list.nth($list, $position);
+	$value: list.nth($list, $position);
 
-	@return _toNumber($_value);
+	@return _toNumber($value);
 }

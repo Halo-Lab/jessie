@@ -4,31 +4,31 @@
 @use "keywords";
 
 @function parse($tokens) {
-	$_copy: $tokens;
-	$_min: null;
-	$_max: null;
+	$tokensCopy: $tokens;
+	$min: null;
+	$max: null;
 
-	@if not utils.isEmpty($_copy) {
-		@if utils.first($_copy) == keywords.$min {
-			$_copy: utils.skipFrom($_copy, keywords.$min);
+	@if not utils.isEmpty($tokensCopy) {
+		@if utils.first($tokensCopy) == keywords.$min {
+			$tokensCopy: utils.skipFrom($tokensCopy, keywords.$min);
 
-			$_min: utils.first($_copy);
+			$min: utils.first($tokensCopy);
 
-			$_copy: utils.skipFrom($_copy, 2);
+			$tokensCopy: utils.skipFrom($tokensCopy, 2);
 		}
 	}
 
-	@if not utils.isEmpty($_copy) {
-		@if utils.first($_copy) == keywords.$max {
-			$_copy: utils.skipFrom($_copy, keywords.$max);
+	@if not utils.isEmpty($tokensCopy) {
+		@if utils.first($tokensCopy) == keywords.$max {
+			$tokensCopy: utils.skipFrom($tokensCopy, keywords.$max);
 
-			$_max: utils.first($_copy);
+			$max: utils.first($tokensCopy);
 		}
 	}
 
-	@if $_min == null and $_max == null {
+	@if $min == null and $max == null {
 		@return ();
 	}
 
-	@return ($_min, $_max);
+	@return ($min, $max);
 }

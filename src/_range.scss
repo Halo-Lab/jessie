@@ -5,15 +5,15 @@
 @use "keywords";
 
 @function parse($tokens) {
-	$_copy: utils.skipFrom($tokens, keywords.$from);
-	$leftNumber: number.extractFrom($_copy);
+	$tokensCopy: utils.skipFrom($tokens, keywords.$from);
+	$leftColumn: number.extractFrom($tokensCopy);
 
-	$_copy: utils.skipFrom(utils.skipFrom($_copy, 2), keywords.$to);
-	$rightNumber: number.extractFrom($_copy);
+	$tokensCopy: utils.skipFrom(utils.skipFrom($tokensCopy, 2), keywords.$to);
+	$rightColumn: number.extractFrom($tokensCopy);
 
-	@if $leftNumber > $rightNumber {
-		@error 'From number cannot be greater than To';
+	@if $leftColumn > $rightColumn {
+		@error 'Left column cannot be greater than right one: left - #{$leftColumn}, right - #{$rightColumn}';
 	}
 
-	@return ($leftNumber $rightNumber);
+	@return ($leftColumn $rightColumn);
 }
