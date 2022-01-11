@@ -2,6 +2,7 @@
 	"name": "jessie",
 	"version": "0.1.0",
 	"description": "Utility for defining dimensions of elements based on the alleged grid",
+	"main": "src/scrollbar.js",
 	"scripts": {
 		"start": "parcel ./test/index.html",
 		"build": "parcel build ./test/index.html"

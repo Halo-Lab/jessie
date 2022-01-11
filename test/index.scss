@@ -25,7 +25,8 @@ body {
 
 .ruler {
 	display: flex;
-	margin: 0;
+	margin: 0 auto;
+	width: jessie.value(from start to end);
 	padding-left: 0;
 	counter-set: position;
 
@@ -45,12 +46,15 @@ body {
 .container {
 	--line: transparent 0 calc(#{jessie.value(1)} - 1px), black #{jessie.value(1)};
 
+	margin: 0 auto;
+	width: jessie.value(from start to end);
 	border: 1px solid black;
 	background: repeating-linear-gradient(to right, var(--line)),
 		repeating-linear-gradient(to bottom, var(--line));
 }
 
 .cell {
+	text-align: center;
 	background-color: var(--main-color);
 
 	&:not(:last-child) {
@@ -65,6 +69,10 @@ body {
 .range {
 	margin-left: jessie.value(from start to 4);
 	width: jessie.value(from 4 to 12);
+}
+
+.one-side-range {
+	width: jessie.value(to 7);
 }
 
 .range-min-constraint {

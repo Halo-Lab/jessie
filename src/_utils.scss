@@ -5,22 +5,45 @@
 	@return list.length($list) == 0;
 }
 
-@function slice($list, $from, $to: list.length($list) + 1) {
-	$separator: list.separator($list);
-	$copy: ();
-
-	@for $index from $from to $to {
-		$copy: list.append($copy, list.nth($list, $index), $separator);
+@function slice($list, $from, $to: list.length($list)) {
+	@if list.length($list) == 0 {
+		@return ();
 	}
 
-	@return $copy;
+	$fromCopy: $from;
+	$toCopy: $to;
+
+	@if $fromCopy < 1 {
+		$fromCopy: 1;
+	}
+
+	@if $toCopy > list.length($list) {
+		$toCopy: list.length($list);
+	}
+
+	@if $fromCopy > list.length($list) {
+		@return ();
+	}
+
+	@if $fromCopy > $toCopy {
+		@error "Start index of slice function cannot be greater then end index: #{$fromCopy} > #{$toCopy}.";
+	}
+
+	$separator: list.separator($list);
+	$listCopy: ();
+
+	@for $index from $fromCopy through $toCopy {
+		$listCopy: list.append($listCopy, list.nth($list, $index), $separator);
+	}
+
+	@return $listCopy;
 }
 
 @function skipFrom($list, $tokenOrCount) {
 	// We cannot import 'number' module because of circular
 	// dependencies
 	@if meta.type-of($tokenOrCount) == number {
-		@return slice($list, $tokenOrCount);
+		@return slice($list, $tokenOrCount + 1);
 	}
 
 	@if $tokenOrCount != first($list) {

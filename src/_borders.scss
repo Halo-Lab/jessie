@@ -14,7 +14,7 @@
 
 			$min: utils.first($tokensCopy);
 
-			$tokensCopy: utils.skipFrom($tokensCopy, 2);
+			$tokensCopy: utils.skipFrom($tokensCopy, 1);
 		}
 	}
 

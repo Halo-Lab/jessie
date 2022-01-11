@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "sass:list";
 
 @use "unit";
@@ -13,10 +14,11 @@
 
 	@if number.isNumber(utils.first($tokensCopy)) {
 		$numbers: (0, number.extractFrom($tokensCopy));
-		$tokensCopy: utils.skipFrom($tokensCopy, 2);
+		$tokensCopy: utils.skipFrom($tokensCopy, 1);
 	} @else {
-		$numbers: range.parse($tokensCopy);
-		$tokensCopy: utils.skipFrom($tokensCopy, 5);
+		$result: range.parse($tokensCopy);
+		$numbers: map.get($result, columns);
+		$tokensCopy: utils.skipFrom($tokensCopy, map.get($result, toSkip));
 	}
 
 	$value: 1rem * (list.nth($numbers, 2) - utils.first($numbers));

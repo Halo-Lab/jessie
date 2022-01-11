@@ -1,0 +1,86 @@
+:root {
+  --scrollbar-width: 0px;
+  font-size: max(10px, min(calc((100vw - var(--scrollbar-width)) * 0.0078125 + 10px), 25px));
+}
+
+:root {
+  --main-color: #ff7c0a;
+  --second-color: #001710;
+}
+
+body {
+  margin: 0;
+  line-height: 1;
+  min-height: 100vh;
+  color: var(--second-color);
+}
+
+.title {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.package-name {
+  color: var(--main-color);
+}
+
+.ruler {
+  display: flex;
+  margin: 0 auto;
+  width: 64rem;
+  padding-left: 0;
+  counter-set: position;
+}
+.ruler li {
+  font-size: 0.7rem;
+  width: 1rem;
+  text-align: center;
+  list-style: none;
+  counter-increment: position;
+}
+.ruler li::before {
+  content: counter(position);
+}
+
+.container {
+  --line: transparent 0 calc(1rem - 1px), black 1rem;
+  margin: 0 auto;
+  width: 64rem;
+  border: 1px solid black;
+  background: repeating-linear-gradient(to right, var(--line)), repeating-linear-gradient(to bottom, var(--line));
+}
+
+.cell {
+  text-align: center;
+  background-color: var(--main-color);
+}
+.cell:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.single-value {
+  width: 5rem;
+}
+
+.range {
+  margin-left: 3rem;
+  width: 8rem;
+}
+
+.one-side-range {
+  width: 6rem;
+}
+
+.range-min-constraint {
+  width: max(30px, 8rem);
+}
+
+.range-max-constraint {
+  width: min(75%, 17rem);
+}
+
+.full-syntax {
+  margin-left: 5rem;
+  width: max(200px, min(39rem, 50em));
+}
+/*# sourceMappingURL=index.15d92306.css.map */

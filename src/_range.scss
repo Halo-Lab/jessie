@@ -1,19 +1,32 @@
 @use "sass:list";
 
+@use "unit";
 @use "utils";
 @use "number";
 @use "keywords";
 
 @function parse($tokens) {
-	$tokensCopy: utils.skipFrom($tokens, keywords.$from);
-	$leftColumn: number.extractFrom($tokensCopy);
+	$tokensCopy: $tokens;
+	$leftColumn: 1;
+	$rightColumn: unit.$columns + 1;
+	$skipCount: 0;
 
-	$tokensCopy: utils.skipFrom(utils.skipFrom($tokensCopy, 2), keywords.$to);
-	$rightColumn: number.extractFrom($tokensCopy);
+	@if utils.first($tokensCopy) == keywords.$from {
+		$tokensCopy: utils.skipFrom($tokensCopy, keywords.$from);
+		$leftColumn: number.extractFrom($tokensCopy);
+		$tokensCopy: utils.skipFrom($tokensCopy, 1);
+		$skipCount: 2;
+	}
+
+	@if utils.first($tokensCopy) == keywords.$to {
+		$tokensCopy: utils.skipFrom($tokensCopy, keywords.$to);
+		$rightColumn: number.extractFrom($tokensCopy);
+		$skipCount: $skipCount + 2;
+	}
 
 	@if $leftColumn > $rightColumn {
 		@error 'Left column cannot be greater than right one: left - #{$leftColumn}, right - #{$rightColumn}';
 	}
 
-	@return ($leftColumn $rightColumn);
+	@return (columns: $leftColumn $rightColumn, toSkip: $skipCount);
 }

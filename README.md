@@ -1,10 +1,10 @@
 # Jessie
 
-This is a fun project for adding special syntax into Sass to define various dimensions based on the _unit_ value.
+This is a project for adding special syntax into Sass to define various dimensions based on the _unit_ value.
 
 ## Description
 
-The _unit_ is responsive value that express a width of a column in a grid with **64** (default) columns. That grid have **100vw** width.
+The _unit_ is responsive value that express a width of a column in a grid with **64** (default) columns. The grid have **100vw** width.
 
 Firstly, you should call the `init` mixin that will define the global `unit` value. It has four optional parameters (all with default values):
 
@@ -27,9 +27,19 @@ That mixin should be invoked once **only** in global scope.
 @include jessie.init();
 ```
 
-The syntax is simple:
+Also, in JavaScript you should invoke `calculateScrollbarWidth` function. It is needed to rectify a value of `1vw` for systems where sidebar takes some place in browser's window and [`100vw` makes a page expand under sidebar (Windows)](https://www.smashingmagazine.com/2021/04/css-overflow-issues/#viewport-units).
 
-- there is a `dimensions` block that can be a count of the units or range in format `from <number>|start (inclusive) to <number>|end (exclusive)`.
+```js
+import { calculateScrollbarWidth } from "jessie";
+
+calculateScrollbarWidth();
+```
+
+### Syntax
+
+It is simple:
+
+- there is a `dimensions` block that can be either a count of the units or range in format `from <number>|start (inclusive) to <number>|end (exclusive)`. You can omit either _from_ part or _end_ but not both.
 
 > The resulting value includes start column but it does not include end column.
 
@@ -43,9 +53,11 @@ Definition of the dimension must be written inside a `value` function.
 body {
 	width: jessie.value(8);
 	// or
-	width: jessie.value(from 1 to 8);
+	width: jessie.value(from 1 to 9);
+	// or
+	width: jessie.value(to 9);
 	// or if you want to add some constraints
-	width: jessie.value(from 1 to 8 min 40px max 120px);
+	width: jessie.value(from 1 to 9 min 40px max 120px);
 }
 ```
 
