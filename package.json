@@ -13,7 +13,8 @@
 	},
 	"targets": {
 		"default": {
-			"distDir": "docs"
+			"distDir": "docs",
+			"publicUrl": "/jessie"
 		}
 	},
 	"publishConfig": {

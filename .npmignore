@@ -1,6 +1,7 @@
 .parcel-cache/
 node_modules/
 docs/
+dist/
 test/
 
 .editorconfig
