@@ -5,11 +5,16 @@
 	"scripts": {
 		"prepublishOnly": "npm run build",
 		"start": "parcel ./test/index.html",
-		"prebuild": "rm -rf dist",
+		"prebuild": "rm -rf docs",
 		"build": "parcel build ./test/index.html"
 	},
 	"dependencies": {
 		"sass": "^1.47.0"
+	},
+	"targets": {
+		"default": {
+			"distDir": "docs"
+		}
 	},
 	"publishConfig": {
 		"access": "public"
