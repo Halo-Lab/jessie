@@ -22,7 +22,7 @@ Firstly, you should call the `init` mixin that will define the global `unit` val
 That mixin should be invoked once **only** in global scope.
 
 ```scss
-@use "@halo/jessie";
+@use "@halo-lab/jessie";
 
 @include jessie.init();
 ```
@@ -30,7 +30,7 @@ That mixin should be invoked once **only** in global scope.
 Also, in JavaScript you should invoke `calculateScrollbarWidth` function. It is needed to rectify a value of `1vw` for systems where sidebar takes some place in browser's window and [`100vw` makes a page expand under sidebar (Windows)](https://www.smashingmagazine.com/2021/04/css-overflow-issues/#viewport-units).
 
 ```js
-import { calculateScrollbarWidth } from "@halo/jessie";
+import { calculateScrollbarWidth } from "@halo-lab/jessie";
 
 calculateScrollbarWidth();
 ```
@@ -48,7 +48,7 @@ It is simple:
 Definition of the dimension must be written inside a `value` function.
 
 ```scss
-@use "@halo/jessie";
+@use "@halo-lab/jessie";
 
 body {
 	width: jessie.value(8);
