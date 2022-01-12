@@ -1,3 +1,3 @@
-import { calculateScrollbarWidth } from "../src/scrollbar";
+import { calculateScrollbarWidth } from "..";
 
 calculateScrollbarWidth();

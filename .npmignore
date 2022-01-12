@@ -1,0 +1,9 @@
+.parcel-cache/
+node_modules/
+dist/
+test/
+
+.editorconfig
+.gitignore
+.npmignore
+package-lock.json
