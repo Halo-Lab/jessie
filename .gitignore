@@ -2,3 +2,5 @@ node_modules
 .parcel-cache
 .git
 .DS_Store
+
+.npmrc
